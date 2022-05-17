@@ -1,0 +1,45 @@
+<div>Список</div>
+<input type="button" value="Добавить" class="btn btn-default" (click)="add()" />
+<table class="table">
+  <thead>
+  <tr>
+    <td>Имя</td>
+    <td>Параметры</td>
+    <td></td>
+    <td></td>
+  </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of datas">
+    <ng-template [ngTemplateOutlet]="loadTemplate(data)"
+                 [ngTemplateOutletContext]="{ $implicit: data}">
+    </ng-template>
+  </tr>
+  </tbody>
+</table>
+
+<ng-template #readOnlyTemplate let-data>
+  <td>{{data.name}}</td>
+  <td>{{data.params}}</td>
+  <td>
+    <input type="button" value="Изменить" class="btn btn-default" (click)="edit(data)" />
+  </td>
+  <td>
+    <input type="button" value="Удалить" (click)="delete(data)" class="btn btn-danger" />
+  </td>
+</ng-template>
+
+<ng-template #editTemplate>
+  <td>
+    <input type="text" [(ngModel)]="createdData.name" class="form-control" />
+  </td>
+  <td>
+    <input type="Array" [(ngModel)]="createdData.params" class="form-control" />
+  </td>
+  <td>
+    <input type="button" value="Сохранить" (click)="save()" class="btn btn-success" />
+  </td>
+  <td>
+    <input type="button" value="Отмена" (click)="cancel()" class="btn btn-warning" />
+  </td>
+</ng-template>
